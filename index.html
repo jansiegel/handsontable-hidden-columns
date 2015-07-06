@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Handsontable "Hiden Columns" plugin demo</title>
+  <!--<script src="../../dist/handsontable.full.js"></script>-->
+  <!--<link rel="stylesheet" media="screen" href="../../dist/handsontable.full.css">-->
+
+  <script src="lib/handsontable.full.js"></script>
+  <link rel="stylesheet" media="screen" href="lib/handsontable.full.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/languages/javascript.min.js"></script>
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="screen"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+  <link rel="stylesheet" media="screen" href="style.css">
+</head>
+<body>
+
+<h1>Handsontable <i>"hiddenColumns"</i> plugin demo</h1>
+
+<div class="middle-pane">
+  <div id="allInOne" style="margin: 0 auto; overflow: hidden;"></div>
+  <script class="preview">
+    var elem = document.querySelector('#allInOne');
+    var hot = new Handsontable(elem, {
+      data: Handsontable.helper.createSpreadsheetData(20, 15),
+      width: 400,
+      height: 400,
+      colHeaders: true,
+      hiddenColumns: {
+        columns: [1, 3, 4, 7],
+        indicators: true
+      }
+    });
+  </script>
+</div>
+
+<div class="middle-pane">
+  <h2>Feature guide:</h2>
+
+  <h3>The <i>columns</i> property</h3>
+
+  <p>The <code>columns</code> property defines the columns to be hidden by the plugin. It accepts an array of
+    indexes.<br>
+    See the all-in-one example for an example usage.</p>
+  <hr>
+  <h3>The <i>indicators</i> property</h3>
+
+  <p>The <code>indicators</code> property defines whether the table should have small triangle shaped indicators in the
+    column headers to indicate the hidden columns. It accepts boolean values.<br>
+    Default value: <i>true</i><br><br>
+    See the all-in-one example for an example usage.</p>
+  <hr>
+  <h3>The <i>copyPasteEnabled</i> property</h3>
+
+  <p>The <code>copyPasteEnabled</code> property defines whether the table should allow to copy and paste from/into the hidden columns.<br>
+    Default value: <i>false</i><br><br></p>
+
+  <p>Example with copyPasteEnabled set to <i>true</i>:</p>
+  <div id="copyPasteEnabled" style="margin: 0 auto; overflow: hidden;"></div>
+  <script class="preview">
+    var elem = document.querySelector('#copyPasteEnabled');
+    var hot = new Handsontable(elem, {
+      data: Handsontable.helper.createSpreadsheetData(20, 15),
+      width: 400,
+      height: 400,
+      colHeaders: true,
+      hiddenColumns: {
+        columns: [1, 3, 4, 7],
+        copyPasteEnabled: true
+      }
+    });
+  </script>
+
+  <p>Example with copyPasteEnabled set to <i>false</i>:</p>
+  <div id="copyPasteEnabledFalse" style="margin: 0 auto; overflow: hidden;"></div>
+  <script class="preview">
+    var elem = document.querySelector('#copyPasteEnabledFalse');
+    var hot = new Handsontable(elem, {
+      data: Handsontable.helper.createSpreadsheetData(20, 15),
+      width: 400,
+      height: 400,
+      colHeaders: true,
+      hiddenColumns: {
+        columns: [1, 3, 4, 7],
+        copyPasteEnabled: false
+      }
+    });
+  </script>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad();
+  hljs.configure({useBR: true});
+
+  function previewCode() {
+    var scripts = document.querySelectorAll('script.preview');
+    var divs = document.querySelectorAll('div.codeExample');
+    cloneScripts(scripts);
+    cloneScripts(divs);
+
+  }
+
+  function cloneScripts(scripts) {
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].hasAttribute('src')) {
+        continue;
+      }
+
+      var pre = document.createElement('PRE');
+      var code = document.createElement('CODE');
+      code.className = 'javascript preview';
+      code.innerText = scripts[i].innerText || script[i].textContent;
+      pre.className = 'cdPreview';
+      pre.appendChild(code);
+
+      scripts[i].parentNode.insertBefore(pre, scripts[i]);
+    }
+  }
+
+  previewCode();
+
+</script>
+</body>
+</html>
